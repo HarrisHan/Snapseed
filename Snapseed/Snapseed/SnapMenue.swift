@@ -18,8 +18,8 @@ class SnapMenue: UIView {
     
     var delegate:SnapMenueProtocal?
     
-    var itemWidth:Float?
-    var itemHeight:Float?
+    var itemWidth:Double?
+    var itemHeight:Double?
     
     var panGesture:SnapPanGestureRecognizer?
     
@@ -36,12 +36,11 @@ class SnapMenue: UIView {
     fileprivate var chooseBarName:UILabel?
     fileprivate var chooseBarValue:UILabel?
     
-    init(itemArray:Array<Any>, valueArray:Array<Any>, height:Float, width:Float,delegate:SnapMenueProtocal) {
-        super.init(frame: UIScreen.main.bounds)
+    init(itemArray:Array<String>, valueArray:Array<String>, height:Double, width:Double,viewController:UIViewController) {
+        
         itemWidth  = width
         itemHeight = height
-        
-        self.delegate = delegate
+
         noOfElements  = itemArray.count
         
         items  = itemArray
@@ -51,20 +50,59 @@ class SnapMenue: UIView {
         positions  = Array()
         nemeLabels = Array()
         
-        let totalHeight = Float(noOfElements!) * height
-        let noOfHalfOfItems = noOfElements! / 2
+        let totalHeight = Double(noOfElements!) * height
+       
+        super.init(frame: CGRect(x: 0, y: 0, width: Int(width), height: Int(totalHeight)))
         
         panGesture = SnapPanGestureRecognizer(target: self, action: #selector(pan(sender:)))
         panGesture?.direction = .snapPanGestureRecognizerDirectionVertical
         self.backgroundColor = UIColor.blue
         
         // each menue item's position
+        for (index, _) in itemArray.enumerated() {
+            if noOfElements! % 2 == 0 {
+                positions?.append(Double(noOfElements! - index) * height - height / 2)
+            } else {
+                positions?.append(Double(noOfElements! - index) * height)
+            }
+        }
+        
+        self.center = viewController.view.center
+        
+        for (index, _) in itemArray.enumerated() {
+        let label = UILabel.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+            label.text = itemArray[index]
+            label.center = CGPoint(x: width / 2, y: (Double(index) * 2 + 1) * height / 2)
+            
+            let valueLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+            valueLabel.text = valueArray[index]
+            valueLabel.textAlignment = .right
+            valueLabel.center = CGPoint(x: width / 2, y: (Double(index) * 2 + 1) * height / 2)
+        
+            addSubview(label)
+            addSubview(valueLabel)
+            
+            items?.append(label)
+            values?.append(valueLabel)
+        }
+        
+        chooseBar = UIView.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        chooseBar?.center = viewController.view.center;
+        chooseBar?.backgroundColor = UIColor.blue.withAlphaComponent(0.4)
+        viewController.view.addSubview(chooseBar!)
+        viewController.view.addSubview(self)
+        viewController.view.bringSubview(toFront: chooseBar!)
+        
+
+        self.alpha = 0
+        chooseBar?.alpha = 0
         
     }
-
+    
+    
     
     func pan(sender: UIPanGestureRecognizer) {
-    
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -72,12 +110,12 @@ class SnapMenue: UIView {
     }
     
     
-   
+    
     
     func setValueAtIndex(index:Int, value:CGFloat) {
-    
+        
     }
-
+    
     
     
 }
