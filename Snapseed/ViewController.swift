@@ -19,6 +19,9 @@ class ViewController: UIViewController {
     
     var selectedIndex:Int?
     
+    var preTranslate = CGPoint(x: 0, y: 0)
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +37,12 @@ class ViewController: UIViewController {
         
         self.view.addGestureRecognizer((menu?.panGesture)!)
         
-//        panGes = SnapPanGestureRecognizer(target: self, action: #selector(changeValue(sender:)))
-//        panGes?.direction = .snapPanGestureRecognizerDirectionHorizental
+        panGes = SnapPanGestureRecognizer(target: self, action: #selector(changeValue(sender:)))
+        panGes?.direction = .snapPanGestureRecognizerDirectionHorizental
         
-//        self.view.addGestureRecognizer(panGes!)
+        self.view.addGestureRecognizer(panGes!)
+        
+        menu?.delegate = self
         
     }
 
@@ -47,8 +52,6 @@ class ViewController: UIViewController {
     
     func changeValue(sender: UIPanGestureRecognizer) {
     
-        var preTranslate = CGPoint(x: 0, y: 0)
-        
         let translate = sender.translation(in: self.view)
         
         values?[selectedIndex!] = values![selectedIndex!] as! CGFloat + (translate.x - preTranslate.x)

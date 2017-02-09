@@ -224,7 +224,7 @@ class SnapMenue: UIView {
     
     func setValueAtIndex(index:Int, value:CGFloat) {
         labelValues?[index] = "\(value)"
-        
+        items?[index].text  = "\(value)"
     }
     
     
