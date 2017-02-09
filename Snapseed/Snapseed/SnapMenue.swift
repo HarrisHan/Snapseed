@@ -80,6 +80,16 @@ class SnapMenue: UIView {
         
         self.center = view!.center
         
+        var frame = self.frame
+        frame.origin.x = 0
+        frame.origin.y = -25
+        frame.size.height += 50
+        
+        let bottomView = UIView.init(frame: frame)
+        bottomView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        addSubview(bottomView)
+        
+        
         for (index, _) in itemArray.enumerated() {
             
             let containerView = UIView.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
