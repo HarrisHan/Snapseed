@@ -17,9 +17,9 @@ enum snapPanGestureRecognizerDirection {
 class SnapPanGestureRecognizer: UIPanGestureRecognizer {
     
     var direction:snapPanGestureRecognizerDirection?
-    var drag:Bool = false
     var moveX:CGFloat = 0.0
     var moveY:CGFloat = 0.0
+    var drag:Bool     = false
     
     
     
@@ -30,11 +30,11 @@ class SnapPanGestureRecognizer: UIPanGestureRecognizer {
         
         if state == .failed { return }
         let nowPoint = touches.first?.location(in: self.view)
-        let prePoint = touches.first?.preciseLocation(in: self.view)
+        let prePoint = touches.first?.previousLocation(in: self.view)
         
         moveX += (prePoint?.x)! - (nowPoint?.x)!
         moveY += (prePoint?.y)! - (nowPoint?.y)!
-        
+
         if !drag {
             if fabsf(Float(moveX)) > SnapPanGestureRecognizer.kDirectionPanThreshold {
                 if direction! == .snapPanGestureRecognizerDirectionVertical {

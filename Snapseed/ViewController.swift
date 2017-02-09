@@ -22,21 +22,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = #colorLiteral(red: 1, green: 0.96465832, blue: 0.8430851102, alpha: 1)
         menueTesting()
     }
     
     func menueTesting() {
-    items  = Array.init(arrayLiteral: "1","2","3","4")
-    values = Array.init(arrayLiteral: "0","0","0","0")
+    items  = Array.init(arrayLiteral: "亮度","高光","阴影","强度","饱和度","对比度")
+    values = Array.init(arrayLiteral: "-18","-35","+18","0","+27","0")
         
-        menu = SnapMenue.init(itemArray: items as! Array<String>, valueArray: values as! Array<String>, height: 50, width: 250, viewController: self)
+        menu = SnapMenue.init(itemArray: items as! Array<String>, valueArray: values as! Array<String>, height: 42, width: 245, viewController: self)
         
         self.view.addGestureRecognizer((menu?.panGesture)!)
         
-        panGes = SnapPanGestureRecognizer(target: self, action: #selector(changeValue(sender:)))
-        panGes?.direction = .snapPanGestureRecognizerDirectionHorizental
+//        panGes = SnapPanGestureRecognizer(target: self, action: #selector(changeValue(sender:)))
+//        panGes?.direction = .snapPanGestureRecognizerDirectionHorizental
         
-        self.view.addGestureRecognizer(panGes!)
+//        self.view.addGestureRecognizer(panGes!)
         
     }
 
