@@ -10,6 +10,7 @@ import UIKit
 
 protocol SnapMenueProtocal {
     func menueSelectedWithIndex(index:Int)
+    func selectWhileTracking(index: Int)
 }
 
 class SnapMenue: UIView {
@@ -177,6 +178,7 @@ class SnapMenue: UIView {
         chooseBarValue?.text = String(format:"%.f",(labelValues?[lastIndex])!)
         chooseBarName?.sizeToFit()
         chooseBarValue?.sizeToFit()
+        delegate?.selectWhileTracking(index: lastIndex)
         
         for (index, _) in (items?.enumerated())! {
             let nameLable  = items?[index]

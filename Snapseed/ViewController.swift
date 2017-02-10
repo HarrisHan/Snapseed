@@ -10,14 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var items:Array<String>?
+    var items: Array<String>?
     var values:Array<Double>?
     
-    var panGes:SnapPanGestureRecognizer?
+    var panGes: SnapPanGestureRecognizer?
     
-    var menu:SnapMenue?
+    var menu: SnapMenue?
     
-    var selectedIndex:Int?
+    var topSlider: SnapTopSlider?
+    
+    
+    var selectedIndex: Int?
     
     var preTranslate = CGPoint(x: 0, y: 0)
     
@@ -34,16 +37,18 @@ class ViewController: UIViewController {
     values = Array.init(arrayLiteral: 0,0,0,0,0,0)
         
         menu = SnapMenue.init(itemArray: items!, valueArray: values!, height: 42, width: 245, viewController: self)
+        menu?.delegate = self
         
         self.view.addGestureRecognizer((menu?.panGesture)!)
         
         panGes = SnapPanGestureRecognizer(target: self, action: #selector(changeValue(sender:)))
         panGes?.direction = .snapPanGestureRecognizerDirectionHorizental
-        
         self.view.addGestureRecognizer(panGes!)
         
-        menu?.delegate = self
-        
+        topSlider = SnapTopSlider.init(name: "", value: 0)
+        topSlider?.backgroundColor = UIColor.clear
+        topSlider?.frame = CGRect(x: 0, y: 20, width: UIScreen.main.bounds.size.width, height: 11)
+        self.view.addSubview(topSlider!)
     }
 
     
@@ -54,18 +59,27 @@ class ViewController: UIViewController {
     
         let translate = sender.translation(in: self.view)
         
-        values?[selectedIndex!] = values![selectedIndex!] + Double(translate.x - preTranslate.x)
+        values?[selectedIndex!] = values![selectedIndex!] + Double(suitableValue(point: translate).x - preTranslate.x)
         
         menu?.setValueAtIndex(index: selectedIndex!, value: (values?[selectedIndex!])!)
         
-        preTranslate = translate
+        topSlider?.update(name: (items?[selectedIndex!])!, value: (values?[selectedIndex!])!)
+        
+        preTranslate = suitableValue(point: translate)
         
         if sender.state == .ended {
             preTranslate = CGPoint(x: 0, y: 0)
+            topSlider?.coverHidden()
         }
         
     }
 
+    func suitableValue(point: CGPoint) -> CGPoint {
+        var suitablePoint = point
+        suitablePoint.x = (point.x / 3)
+        return suitablePoint
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,6 +93,11 @@ extension ViewController: SnapMenueProtocal {
     
     func menueSelectedWithIndex(index: Int) {
         selectedIndex = index
+       topSlider?.coverHidden()
+    }
+    
+    func selectWhileTracking(index: Int) {
+        topSlider?.update(name: (items?[index])!, value: (values?[index])!)
     }
 }
 

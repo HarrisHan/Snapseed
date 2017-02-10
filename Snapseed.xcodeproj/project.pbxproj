@@ -14,6 +14,7 @@
 		6F6DDA781E4AC8A000526014 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F6DDA761E4AC8A000526014 /* LaunchScreen.storyboard */; };
 		6F6DDA811E4AC94800526014 /* SnapPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6DDA801E4AC94800526014 /* SnapPanGestureRecognizer.swift */; };
 		6F6DDA861E4AEEC600526014 /* SnapMenue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6DDA851E4AEEC600526014 /* SnapMenue.swift */; };
+		6F91B1981E4D68AA007817F1 /* SnapTopSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F91B1971E4D68AA007817F1 /* SnapTopSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		6F6DDA791E4AC8A100526014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F6DDA801E4AC94800526014 /* SnapPanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		6F6DDA851E4AEEC600526014 /* SnapMenue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapMenue.swift; sourceTree = "<group>"; };
+		6F91B1971E4D68AA007817F1 /* SnapTopSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapTopSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			children = (
 				6F6DDA801E4AC94800526014 /* SnapPanGestureRecognizer.swift */,
 				6F6DDA851E4AEEC600526014 /* SnapMenue.swift */,
+				6F91B1971E4D68AA007817F1 /* SnapTopSlider.swift */,
 			);
 			path = Snapseed;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 				6F6DDA701E4AC89E00526014 /* ViewController.swift in Sources */,
 				6F6DDA861E4AEEC600526014 /* SnapMenue.swift in Sources */,
 				6F6DDA6E1E4AC89D00526014 /* AppDelegate.swift in Sources */,
+				6F91B1981E4D68AA007817F1 /* SnapTopSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
