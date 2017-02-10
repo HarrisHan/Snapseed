@@ -28,7 +28,7 @@ class SnapMenue: UIView {
     
     fileprivate var positions:Array<Any>?
     fileprivate var labelNames:Array<String>?
-    fileprivate var labelValues:Array<String>?
+    fileprivate var labelValues:Array<Double>?
     
     fileprivate var noOfElements:Int?
     
@@ -40,7 +40,7 @@ class SnapMenue: UIView {
     
     fileprivate var view:UIView?
     
-    init(itemArray:Array<String>, valueArray:Array<String>, height:Double, width:Double,viewController:UIViewController) {
+    init(itemArray:Array<String>, valueArray:Array<Double>, height:Double, width:Double,viewController:UIViewController) {
         
         itemWidth  = width
         itemHeight = height
@@ -63,7 +63,7 @@ class SnapMenue: UIView {
         
         let noOfHalfElements = noOfElements! / 2
         
-        super.init(frame: CGRect(x: 0, y: 0, width: Int(width), height: Int(totalHeight)))
+        super.init(frame: CGRect(x: 0, y: 0, width: width, height: totalHeight))
         
         panGesture = SnapPanGestureRecognizer(target: self, action: #selector(pan(sender:)))
         panGesture?.direction = .snapPanGestureRecognizerDirectionVertical
@@ -102,7 +102,7 @@ class SnapMenue: UIView {
             label.textColor = UIColor.black.withAlphaComponent(0.6)
             
             let valueLabel = UILabel.init(frame: CGRect(x: 196, y: 12, width: 0, height: 0))
-            valueLabel.text = valueArray[index]
+            valueLabel.text = String(format:"%.f",valueArray[index])//"\(valueArray[index])"
             valueLabel.sizeToFit()
             valueLabel.font = UIFont.systemFont(ofSize: 13)
             valueLabel.textColor = UIColor.black.withAlphaComponent(0.6)
@@ -174,7 +174,7 @@ class SnapMenue: UIView {
         
         let lastIndex = Int(noOfElements! - pointIndex - 1)
         chooseBarName?.text  = labelNames?[lastIndex]
-        chooseBarValue?.text = labelValues?[lastIndex]
+        chooseBarValue?.text = String(format:"%.f",(labelValues?[lastIndex])!)
         chooseBarName?.sizeToFit()
         chooseBarValue?.sizeToFit()
         
@@ -183,11 +183,12 @@ class SnapMenue: UIView {
             let valueLable = values?[index]
             
             if index == lastIndex {
-                nameLable?.text = ""
+                nameLable?.text  = ""
                 valueLable?.text = ""
             } else {
                 nameLable?.text  = labelNames?[index]
-                valueLable?.text = labelValues?[index]
+                valueLable?.text = String(format:"%.f",(labelValues?[index])!)
+                valueLable?.sizeToFit()
             }
             
         }
@@ -222,8 +223,8 @@ class SnapMenue: UIView {
     
     
     
-    func setValueAtIndex(index:Int, value:CGFloat) {
-        labelValues?[index] = "\(value)"
+    func setValueAtIndex(index:Int, value:Double) {
+        labelValues?[index] = Double(value)
         items?[index].text  = "\(value)"
     }
     

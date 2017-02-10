@@ -10,8 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var items:Array<Any>?
-    var values:Array<Any>?
+    var items:Array<String>?
+    var values:Array<Double>?
     
     var panGes:SnapPanGestureRecognizer?
     
@@ -31,9 +31,9 @@ class ViewController: UIViewController {
     
     func menueTesting() {
     items  = Array.init(arrayLiteral: "亮度","高光","阴影","强度","饱和度","对比度")
-    values = Array.init(arrayLiteral: "-18","-35","+18","0","+27","0")
+    values = Array.init(arrayLiteral: 0,0,0,0,0,0)
         
-        menu = SnapMenue.init(itemArray: items as! Array<String>, valueArray: values as! Array<String>, height: 42, width: 245, viewController: self)
+        menu = SnapMenue.init(itemArray: items!, valueArray: values!, height: 42, width: 245, viewController: self)
         
         self.view.addGestureRecognizer((menu?.panGesture)!)
         
@@ -48,15 +48,15 @@ class ViewController: UIViewController {
 
     
     
-    
+    //CGFloat((values![selectedIndex!] as! NSString).floatValue)
     
     func changeValue(sender: UIPanGestureRecognizer) {
     
         let translate = sender.translation(in: self.view)
         
-        values?[selectedIndex!] = values![selectedIndex!] as! CGFloat + (translate.x - preTranslate.x)
+        values?[selectedIndex!] = values![selectedIndex!] + Double(translate.x - preTranslate.x)
         
-        menu?.setValueAtIndex(index: selectedIndex!, value: values?[selectedIndex!] as! CGFloat)
+        menu?.setValueAtIndex(index: selectedIndex!, value: (values?[selectedIndex!])!)
         
         preTranslate = translate
         
