@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = #colorLiteral(red: 1, green: 0.96465832, blue: 0.8430851102, alpha: 1)
+        selectedIndex = 2
         menueTesting()
     }
     
@@ -52,12 +53,14 @@ class ViewController: UIViewController {
     }
 
     
-    
-    //CGFloat((values![selectedIndex!] as! NSString).floatValue)
-    
+        
     func changeValue(sender: UIPanGestureRecognizer) {
     
         let translate = sender.translation(in: self.view)
+    
+        if (fabs(values![selectedIndex!] + Double(suitableValue(point: translate).x - preTranslate.x)) > 188) {
+         return
+        }
         
         values?[selectedIndex!] = values![selectedIndex!] + Double(suitableValue(point: translate).x - preTranslate.x)
         
