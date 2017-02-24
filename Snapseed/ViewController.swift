@@ -57,10 +57,6 @@ class ViewController: UIViewController {
     func changeValue(sender: UIPanGestureRecognizer) {
     
         let translate = sender.translation(in: self.view)
-    
-        if (fabs(values![selectedIndex!] + Double(suitableValue(point: translate).x - preTranslate.x)) > 188) {
-         return
-        }
         
         values?[selectedIndex!] = values![selectedIndex!] + Double(suitableValue(point: translate).x - preTranslate.x)
         
@@ -77,6 +73,7 @@ class ViewController: UIViewController {
         
     }
 
+    // reduce the sliding speed
     func suitableValue(point: CGPoint) -> CGPoint {
         var suitablePoint = point
         suitablePoint.x = (point.x / 3)

@@ -8,12 +8,13 @@
 
 import UIKit
 
-class SnapTopSlider: UIControl {
-
+class SnapTopSlider: UIView {
+    
     fileprivate let screenWidth = UIScreen.main.bounds.size.width
     fileprivate var coverLayer: CALayer?
     fileprivate var textLayer: CATextLayer?
-    fileprivate var progressLayer: CALayer?
+    fileprivate var leftProgressLayoutWidth: NSLayoutConstraint?
+    fileprivate var rightProgressLayoutWidth: NSLayoutConstraint?
     
     override func draw(_ rect: CGRect) {
         
@@ -24,11 +25,11 @@ class SnapTopSlider: UIControl {
         let rectanglePath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: screenWidth, height: 5))
         fillColor.setFill()
         rectanglePath.fill()
-    
+        
         let rectangle2Path = UIBezierPath(rect: CGRect(x: screenWidth / 2, y: 0, width: 1, height: 11))
         fillColor2.setFill()
         rectangle2Path.fill()
-    
+        
         let rectangle3Path = UIBezierPath(rect: CGRect(x: screenWidth / 4, y: 0, width: 1, height: 5))
         fillColor3.setFill()
         rectangle3Path.fill()
@@ -37,7 +38,7 @@ class SnapTopSlider: UIControl {
         fillColor3.setFill()
         rectangle4Path.fill()
     }
-
+    
     init(name:String,value:Double) {
         super.init(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 11))
         
@@ -53,7 +54,6 @@ class SnapTopSlider: UIControl {
         
         textLayer = CATextLayer.init()
         textLayer?.fontSize = 13
-        textLayer?.string = "亮度 100"
         textLayer?.alignmentMode = "center"
         textLayer?.contentsScale = UIScreen.main.scale
         textLayer?.frame = CGRect(x: (screenWidth - textLayerWidth) / 2, y: (coverLayerHight - textLayerHeight) / 2, width: textLayerWidth, height: textLayerHeight)
@@ -61,11 +61,28 @@ class SnapTopSlider: UIControl {
         
         coverLayer?.opacity = 0
         
-        progressLayer = CALayer.init()
-        progressLayer?.backgroundColor = UIColor.orange.cgColor
-        progressLayer?.frame = CGRect(x: screenWidth / 2, y: 0, width: 0, height: 5)
+        let margin = self.layoutMarginsGuide
         
-        layer.addSublayer(progressLayer!)
+        let rightProgressView = UIView.init()
+        rightProgressView.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        rightProgressView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(rightProgressView)
+        rightProgressView.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        rightProgressView.topAnchor.constraint(equalTo: margin.topAnchor).isActive = true
+        rightProgressView.leadingAnchor.constraint(equalTo: margin.leadingAnchor, constant: screenWidth / 2 - 8).isActive = true
+        rightProgressLayoutWidth = rightProgressView.widthAnchor.constraint(equalToConstant: 0)
+        rightProgressLayoutWidth?.isActive = true
+
+        let leftProgressView = UIView.init()
+        leftProgressView.backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        leftProgressView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(leftProgressView)
+        leftProgressView.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        leftProgressView.topAnchor.constraint(equalTo: margin.topAnchor).isActive = true
+        leftProgressView.trailingAnchor.constraint(equalTo: margin.trailingAnchor, constant: -screenWidth / 2 + 8).isActive = true
+        leftProgressLayoutWidth = leftProgressView.widthAnchor.constraint(equalToConstant: 0)
+        leftProgressLayoutWidth?.isActive = true
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -75,22 +92,19 @@ class SnapTopSlider: UIControl {
     func update(name:String, value:Double) {
         coverLayer?.opacity = 1
         textLayer?.string = name + String(format:" %.f",value)
-        var frame = progressLayer?.frame
         if value >= 0 {
-        frame?.size.width = CGFloat(value)
-        frame?.origin.x = screenWidth / 2
-        progressLayer?.frame = frame!
+            leftProgressLayoutWidth?.constant = 0
+            rightProgressLayoutWidth?.constant = CGFloat(value)
         }
         else {
-        frame?.size.width = abs(CGFloat(value))
-        frame?.origin.x = (screenWidth / 2) - abs(CGFloat(value))
-            progressLayer?.frame = frame!
+            rightProgressLayoutWidth?.constant = 0
+            leftProgressLayoutWidth?.constant = abs(CGFloat(value))
         }
         
     }
     
     func coverHidden() {
-    coverLayer?.opacity = 0
+        coverLayer?.opacity = 0
     }
     
 }
