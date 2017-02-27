@@ -69,7 +69,7 @@ class SnapTopSlider: UIView {
         addSubview(rightProgressView)
         rightProgressView.heightAnchor.constraint(equalToConstant: 5).isActive = true
         rightProgressView.topAnchor.constraint(equalTo: margin.topAnchor).isActive = true
-        rightProgressView.leadingAnchor.constraint(greaterThanOrEqualTo: margin.leadingAnchor, constant: screenWidth / 2 ).isActive = true
+        rightProgressView.leadingAnchor.constraint(greaterThanOrEqualTo: margin.centerXAnchor, constant: 1).isActive = true
         rightProgressLayoutWidth = rightProgressView.widthAnchor.constraint(equalToConstant: 0)
         rightProgressLayoutWidth?.isActive = true
 
@@ -79,7 +79,7 @@ class SnapTopSlider: UIView {
         addSubview(leftProgressView)
         leftProgressView.heightAnchor.constraint(equalToConstant: 5).isActive = true
         leftProgressView.topAnchor.constraint(equalTo: margin.topAnchor).isActive = true
-        leftProgressView.trailingAnchor.constraint(greaterThanOrEqualTo: margin.trailingAnchor, constant: -screenWidth / 2 ).isActive = true
+        leftProgressView.trailingAnchor.constraint(greaterThanOrEqualTo: margin.centerXAnchor).isActive = true
         leftProgressLayoutWidth = leftProgressView.widthAnchor.constraint(equalToConstant: 0)
         leftProgressLayoutWidth?.isActive = true
 
