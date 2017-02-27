@@ -1,10 +1,10 @@
-![snowball.gif](http://upload-images.jianshu.io/upload_images/572857-36e527e84b640507.gif?imageMogr2/auto-orient/strip)
+![snowball.gif](https://github.com/HarrisHan/Snapseed/blob/master/images/snowball.gif)
 
 ## Description 
 
 This is a very lightweight view. Imitate Snapseed while photo editing filter parameters. 
 
-![Snapseed.gif](http://upload-images.jianshu.io/upload_images/572857-f12d6caf4dd1952a.gif?imageMogr2/auto-orient/strip)
+![Snapseed.gif](https://github.com/HarrisHan/Snapseed/blob/master/images/Snapseed.gif)
 
 ## Who will want this  
 
