@@ -34,8 +34,8 @@ class ViewController: UIViewController {
     }
     
     func menueTesting() {
-    items  = Array.init(arrayLiteral: "亮度","高光","阴影","强度","饱和度","对比度")
-    values = Array.init(arrayLiteral: 0,0,0,0,0,0)
+    items  = Array.init(arrayLiteral: "亮度","高光","阴影","强度","锐度","饱和度","对比度")
+    values = Array.init(arrayLiteral: 0,0,0,0,0,0,0)
         
         menu = SnapMenue.init(itemArray: items!, valueArray: values!, height: 42, width: 245, viewController: self)
         menu?.delegate = self
@@ -79,6 +79,12 @@ class ViewController: UIViewController {
         suitablePoint.x = (point.x / 3)
         return suitablePoint
     }
+    
+
+    @IBAction func Appear(_ sender: UIButton) {
+     menu!.appear()
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

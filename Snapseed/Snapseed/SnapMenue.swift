@@ -26,6 +26,7 @@ class SnapMenue: UIView {
     
     fileprivate var items:Array<UILabel>?
     fileprivate var values:Array<UILabel>?
+    fileprivate var containers:Array<UIView>?
     
     fileprivate var positions:Array<Any>?
     fileprivate var labelNames:Array<String>?
@@ -59,6 +60,7 @@ class SnapMenue: UIView {
         positions  = Array()
         items      = Array()
         values     = Array()
+        containers = Array()
         
         let totalHeight = Double(noOfElements!) * height
         
@@ -96,6 +98,9 @@ class SnapMenue: UIView {
             let containerView = UIView.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
             containerView.center = CGPoint(x: width / 2, y: (Double(index) * 2 + 1) * height / 2)
             
+            let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(tapGes(sender:)))
+            containerView.addGestureRecognizer(tapGesture)
+            
             let label = UILabel.init(frame: CGRect(x: 30, y: 12, width: 0, height: 0))
             label.text = itemArray[index]
             label.sizeToFit()
@@ -103,7 +108,7 @@ class SnapMenue: UIView {
             label.textColor = UIColor.black.withAlphaComponent(0.6)
             
             let valueLabel = UILabel.init(frame: CGRect(x: 196, y: 12, width: 0, height: 0))
-            valueLabel.text = String(format:"%.f",valueArray[index])//"\(valueArray[index])"
+            valueLabel.text = String(format:"%.f",valueArray[index])
             valueLabel.sizeToFit()
             valueLabel.font = UIFont.systemFont(ofSize: 13)
             valueLabel.textColor = UIColor.black.withAlphaComponent(0.6)
@@ -115,6 +120,7 @@ class SnapMenue: UIView {
             
             items?.append(label)
             values?.append(valueLabel)
+            containers?.append(containerView)
         }
         
         chooseBar = UIView.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
@@ -218,16 +224,59 @@ class SnapMenue: UIView {
         
     }
     
+    func tapGes(sender: UITapGestureRecognizer) {
+        for container in containers! {
+            if container == sender.view {
+                let height = CGFloat(42)
+                let containterY = container.frame.origin.y
+                let lastIndex = Int(containterY / height)
+                
+                updateValues(lastIndex)
+                
+                delegate?.selectWhileTracking(index: lastIndex)
+                
+                UIView.animate(withDuration: 0.5, delay: 0, options: .beginFromCurrentState, animations: {
+                    self.center = CGPoint(x: self.center.x, y: (self.view?.center.y)! + ((self.positions?[lastIndex])! as! CGFloat))
+                }, completion: nil)
+                UIView.animateKeyframes(withDuration: 0.4, delay: 0.5, options: .beginFromCurrentState, animations: {
+                    self.alpha = 0
+                    self.chooseBar!.alpha = 0
+                }, completion: nil)
+            }
+        }
+    }
+    
+    fileprivate func updateValues(_ lastIndex: Int) {
+        
+        chooseBarName?.text  = labelNames?[lastIndex]
+        chooseBarValue?.text = String(format:"%.f",(labelValues?[lastIndex])!)
+        chooseBarName?.sizeToFit()
+        chooseBarValue?.sizeToFit()
+        
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     
+    func appear() {
+        self.alpha = 1
+        chooseBar?.alpha = 1
+        guard chooseBarName?.text != nil else {
+            for container in containers! {
+                let height = CGFloat(42)
+                let containterY = container.frame.origin.y
+                let lastIndex = Int(containterY / height)
+                updateValues(lastIndex)
+            }
+            return
+        }
+    }
     
     
     func setValueAtIndex(index:Int, value:Double) {
         labelValues?[index] = Double(value)
-        items?[index].text  = "\(value)"
     }
     
     
