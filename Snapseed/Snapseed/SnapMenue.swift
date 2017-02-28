@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SnapMenueProtocal {
+protocol SnapMenueProtocal: class {
     func menueSelectedWithIndex(index:Int)
     func selectWhileTracking(index: Int)
 }
@@ -17,7 +17,7 @@ class SnapMenue: UIView {
     var maxHeight:CGFloat  = 0
     var minHeight:CGFloat  = 0
     
-    var delegate:SnapMenueProtocal?
+    weak var delegate:SnapMenueProtocal?
     
     var itemWidth:Double?
     var itemHeight:Double?
