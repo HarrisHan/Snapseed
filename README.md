@@ -1,5 +1,9 @@
 ![snowball.gif](https://github.com/HarrisHan/Snapseed/blob/master/images/snowball.gif)
 
+## Requirements
+* iOS 8.0+
+* Swift 3
+
 ## Description 
 
 This is a very lightweight view. Imitate Snapseed while photo editing filter parameters. 
